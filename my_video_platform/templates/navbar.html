@@ -1,0 +1,34 @@
+{% load static %}
+<nav class="flex text-gray-100 justify-between items-center py-3 px-4 fixed w-full z-50">
+        <div class="w-6/12">
+            <a href='/'>
+
+            <img src="{% static 'netflix.png' %}" alt="logo" class="w-5/12 md:w-2/12">
+            </a>
+        </div>
+
+        {% if AUTH != 'false'  %}
+            <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      {% if user.is_authenticated %}
+
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Logout</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Welcome !</a>
+      </li>
+
+      {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="/signup">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+        </li>
+
+      {% endif %}
+    </ul>
+  </div>
+        {% endif %}
+    </nav>
