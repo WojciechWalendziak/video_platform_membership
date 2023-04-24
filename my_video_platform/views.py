@@ -6,9 +6,7 @@ from .forms import UserForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView
-from django.views.generic.edit import CreateView
-from .models import Movie, Profile, UserProfile
+from .models import Movie, Profile
 from .forms import LoginForm, ProfileForm
 from django.views import generic
 
@@ -64,7 +62,6 @@ class ProfileList(View):
 
     def get(self, request, *args, **kwargs):
         profiles = request.user.profiles.all()
-        print('ESTONIA')
         print(profiles)
 
         return render(request, 'profileList.html', {
@@ -77,17 +74,14 @@ class ProfileCreate(View):
 
     def get(self, request, *args, **kwargs):
         form = ProfileForm()
-        print('GRECJA')
         return render(request, 'profileCreate.html', {
             'form': form
         })
 
     def post(self, request, *args, **kwargs):
         form = ProfileForm(request.POST or None)
-        print('ATENY')
         if form.is_valid():
             print(form.cleaned_data)
-            print('MOSKWA')
             profile = Profile.objects.create(**form.cleaned_data)
             print(profile)
             if profile:
@@ -104,7 +98,6 @@ class ProfileCreate(View):
 @method_decorator(login_required, name='dispatch')
 class Watch(View):
     def get(self, request, profile_id, *args, **kwargs):
-        print('TURYN')
         print(profile_id)
         try:
             profile = Profile.objects.get(id=profile_id)
